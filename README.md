@@ -4,6 +4,23 @@
 
 An end-to-end Data Engineering project that processes, validates, transforms, and analyzes pharmaceutical product data using PySpark and AWS Glue.
 
+## Interactive Project Guide
+
+The [`docs/index.html`](docs/index.html) site provides a modern, interactive
+explanation of the architecture, transformation stages, schema evolution,
+quality results, code organization, and execution flow.
+
+Preview it locally:
+
+```bash
+python -m http.server 8000 --directory docs
+```
+
+Then open `http://localhost:8000`.
+
+To publish with GitHub Pages, open **Settings > Pages**, select **Deploy from a
+branch**, choose your default branch and the `/docs` folder, then save.
+
 ### Tech Stack
 
 - PySpark
