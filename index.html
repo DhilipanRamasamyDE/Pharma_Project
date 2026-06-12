@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive explanation of the pharmaceutical PySpark data pipeline.">
+  <title>PharmaFlow | PySpark Pipeline Explained</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="PharmaFlow home">
+      <span class="brand-mark">P</span>
+      <span>Pharma<span class="accent-text">Flow</span></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#architecture">Architecture</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#quality">Quality</a>
+      <a href="#run">Run it</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle color theme">
+        <span class="theme-icon" aria-hidden="true">◐</span>
+      </button>
+      <a class="button button-small button-dark" href="../README.md">View README</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy reveal">
+        <span class="eyebrow"><span class="status-dot"></span> End-to-end data engineering project</span>
+        <h1>From raw medicine data to <span class="gradient-text">trusted insight.</span></h1>
+        <p class="hero-lede">
+          Explore how 253,973 pharmaceutical records move through a modular
+          PySpark pipeline for profiling, cleaning, feature engineering,
+          analytics, and quality control.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#pipeline">Explore the pipeline <span>→</span></a>
+          <a class="button button-ghost" href="#run">Run locally</a>
+        </div>
+        <div class="tech-row" aria-label="Technology stack">
+          <span>Python 3.14</span>
+          <span>PySpark 4.1</span>
+          <span>Java 17</span>
+          <span>AWS Glue</span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal delay-1" aria-label="Pipeline summary visualization">
+        <div class="visual-glow"></div>
+        <div class="data-card source-card">
+          <div class="card-label"><span class="mini-icon csv-icon">≡</span> Raw CSV</div>
+          <strong>253,973</strong>
+          <span>product records</span>
+        </div>
+        <div class="flow-line flow-line-one"><span></span></div>
+        <div class="spark-core">
+          <div class="spark-orbit orbit-one"></div>
+          <div class="spark-orbit orbit-two"></div>
+          <span class="spark-symbol">S</span>
+          <strong>PySpark</strong>
+          <small>Transform engine</small>
+        </div>
+        <div class="flow-line flow-line-two"><span></span></div>
+        <div class="data-card output-card">
+          <div class="card-label"><span class="mini-icon check-icon">✓</span> Curated</div>
+          <strong>253,713</strong>
+          <span>quality-checked rows</span>
+        </div>
+        <div class="floating-chip chip-one">17 fields</div>
+        <div class="floating-chip chip-two">7 stages</div>
+      </div>
+    </section>
+
+    <section class="metrics section-shell" aria-label="Verified project metrics">
+      <article class="metric-card reveal">
+        <span class="metric-index">01</span>
+        <strong data-count="253973">253,973</strong>
+        <p>Raw rows profiled</p>
+      </article>
+      <article class="metric-card reveal delay-1">
+        <span class="metric-index">02</span>
+        <strong data-count="7648">7,648</strong>
+        <p>Distinct manufacturers</p>
+      </article>
+      <article class="metric-card reveal delay-2">
+        <span class="metric-index">03</span>
+        <strong data-count="251495">251,495</strong>
+        <p>Records passing checks</p>
+      </article>
+      <article class="metric-card reveal delay-3">
+        <span class="metric-index">04</span>
+        <strong>99.0%</strong>
+        <p>Rows marked healthy</p>
+      </article>
+    </section>
+
+    <section class="content-section section-shell" id="architecture">
+      <div class="section-heading reveal">
+        <span class="kicker">System architecture</span>
+        <h2>One pipeline, two execution environments.</h2>
+        <p>The same transformation modules power fast local development and distributed AWS Glue jobs.</p>
+      </div>
+      <div class="architecture-grid reveal delay-1">
+        <article class="architecture-card">
+          <div class="architecture-top">
+            <span class="architecture-icon local-icon">⌂</span>
+            <div>
+              <span class="card-kicker">Development path</span>
+              <h3>Local Spark</h3>
+            </div>
+          </div>
+          <p>Run from PyCharm or the command line with sampled data, full profiling, and a single convenient CSV output.</p>
+          <ul class="feature-list">
+            <li>Local multi-core Spark session</li>
+            <li>CLI input and sampling controls</li>
+            <li>pandas single-file export</li>
+          </ul>
+          <code>python run_local.py --sample 0.01</code>
+        </article>
+        <div class="shared-core">
+          <span>Shared core</span>
+          <strong>src/pipeline.py</strong>
+          <div class="core-lines"><i></i><i></i><i></i></div>
+          <small>Reusable transformation modules</small>
+        </div>
+        <article class="architecture-card">
+          <div class="architecture-top">
+            <span class="architecture-icon cloud-icon">☁</span>
+            <div>
+              <span class="card-kicker">Production path</span>
+              <h3>AWS Glue</h3>
+            </div>
+          </div>
+          <p>Reuse the same pipeline with S3 paths, managed Spark infrastructure, and distributed output writing.</p>
+          <ul class="feature-list">
+            <li>Glue job arguments</li>
+            <li>S3 input and output paths</li>
+            <li>Distributed Spark writer</li>
+          </ul>
+          <code>glue/pharma_glue_job.py</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section pipeline-section" id="pipeline">
+      <div class="section-shell">
+        <div class="section-heading light reveal">
+          <span class="kicker">Transformation journey</span>
+          <h2>Seven focused stages. One curated dataset.</h2>
+          <p>Select a stage to understand what enters, what Spark does, and what leaves.</p>
+        </div>
+        <div class="pipeline-layout">
+          <div class="stage-list reveal" role="tablist" aria-label="Pipeline stages">
+            <button class="stage-button active" type="button" role="tab" aria-selected="true" data-stage="profile">
+              <span>01</span><strong>Profile</strong><small>Understand the source</small>
+            </button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="clean">
+              <span>02</span><strong>Clean</strong><small>Normalize and deduplicate</small>
+            </button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="parse">
+              <span>03</span><strong>Parse</strong><small>Extract medicine attributes</small>
+            </button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="price">
+              <span>04</span><strong>Price</strong><small>Engineer price features</small>
+            </button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="window">
+              <span>05</span><strong>Window</strong><small>Rank and compare</small>
+            </button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="quality">
+              <span>06</span><strong>Validate</strong><small>Apply quality rules</small>
+            </button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="publish">
+              <span>07</span><strong>Publish</strong><small>Write curated output</small>
+            </button>
+          </div>
+          <article class="stage-detail reveal delay-1" id="stage-detail" aria-live="polite">
+            <div class="detail-number">01</div>
+            <span class="detail-kicker">profiling.py</span>
+            <h3>Know the data before changing it.</h3>
+            <p>Profiling establishes a measurable baseline for the source dataset and exposes structural or content problems before transformation.</p>
+            <div class="detail-grid">
+              <div>
+                <span>Operations</span>
+                <ul>
+                  <li>Print inferred Spark schema</li>
+                  <li>Count null and empty values</li>
+                  <li>Find duplicate business keys</li>
+                  <li>Measure distinct value frequencies</li>
+                </ul>
+              </div>
+              <div>
+                <span>Key output</span>
+                <div class="detail-stat"><strong>22,330</strong><small>missing pack sizes found</small></div>
+                <div class="detail-stat"><strong>260</strong><small>duplicate business rows</small></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section section-shell" id="data-model">
+      <div class="section-heading reveal">
+        <span class="kicker">Schema evolution</span>
+        <h2>Raw columns become analytics-ready features.</h2>
+        <p>The curated model keeps source identity while adding normalized, explainable business attributes.</p>
+      </div>
+      <div class="schema-board reveal delay-1">
+        <div class="schema-column raw-schema">
+          <div class="schema-title"><span>Input</span><strong>Raw product record</strong></div>
+          <ul>
+            <li><code>brand_name</code><span>string</span></li>
+            <li><code>manufacturer</code><span>string</span></li>
+            <li><code>price_inr</code><span>double</span></li>
+            <li><code>primary_strength</code><span>string</span></li>
+            <li><code>pack_size</code><span>double</span></li>
+          </ul>
+        </div>
+        <div class="schema-transform">
+          <span>Transform</span>
+          <div>→</div>
+          <small>clean<br>parse<br>enrich</small>
+        </div>
+        <div class="schema-column curated-schema">
+          <div class="schema-title"><span>Output</span><strong>Curated product record</strong></div>
+          <ul>
+            <li><code>product_name_clean</code><span>normalized</span></li>
+            <li><code>strength_value</code><span>numeric</span></li>
+            <li><code>price_per_unit</code><span>derived</span></li>
+            <li><code>manufacturer_product_rank</code><span>window</span></li>
+            <li><code>quality_flag</code><span>validated</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section quality-section" id="quality">
+      <div class="section-shell quality-layout">
+        <div class="section-heading reveal">
+          <span class="kicker">Data quality</span>
+          <h2>Every record leaves with a clear status.</h2>
+          <p>Ordered rules make quality results deterministic, readable, and useful for downstream filtering.</p>
+          <div class="quality-total">
+            <strong>253,713</strong>
+            <span>curated rows evaluated</span>
+          </div>
+        </div>
+        <div class="quality-panel reveal delay-1">
+          <div class="quality-bar" aria-label="Quality distribution">
+            <span class="bar-ok" style="width:99.13%"></span>
+            <span class="bar-warning" style="width:.86%"></span>
+            <span class="bar-error" style="width:.01%"></span>
+          </div>
+          <div class="quality-legend">
+            <article>
+              <span class="legend-dot ok"></span>
+              <div><strong>251,495</strong><p>Healthy records</p></div>
+              <small>99.13%</small>
+            </article>
+            <article>
+              <span class="legend-dot warning"></span>
+              <div><strong>2,183</strong><p>Missing strength</p></div>
+              <small>0.86%</small>
+            </article>
+            <article>
+              <span class="legend-dot error"></span>
+              <div><strong>35</strong><p>Invalid price</p></div>
+              <small>0.01%</small>
+            </article>
+          </div>
+          <div class="rule-note">
+            <span>Why null instead of failure?</span>
+            <p><code>try_divide</code> safely returns null when a price average or package quantity is zero, while Spark ANSI mode remains enabled.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section section-shell" id="code">
+      <div class="section-heading reveal">
+        <span class="kicker">Code organization</span>
+        <h2>Small modules, explicit responsibilities.</h2>
+        <p>The orchestration layer reads like the business process because implementation details live in focused modules.</p>
+      </div>
+      <div class="code-layout reveal delay-1">
+        <div class="file-tree" aria-label="Project file tree">
+          <div class="tree-header"><span></span><span></span><span></span><strong>pharma-pyspark-glue</strong></div>
+          <ul>
+            <li class="folder open">src</li>
+            <li class="indent file active">pipeline.py</li>
+            <li class="indent file">spark_session.py</li>
+            <li class="indent folder open">transformations</li>
+            <li class="indent-two file">cleaning.py</li>
+            <li class="indent-two file">price_transforms.py</li>
+            <li class="indent-two file">quality_checks.py</li>
+            <li class="folder">glue</li>
+            <li class="file">run_local.py</li>
+          </ul>
+        </div>
+        <div class="code-window">
+          <div class="code-header"><span>pipeline.py</span><small>Orchestration</small></div>
+          <pre><code><span class="line-number">01</span><span class="keyword">def</span> <span class="function">build_curated_dataset</span>(df):
+<span class="line-number">02</span>    df = <span class="function">clean_data</span>(df)
+<span class="line-number">03</span>    df = <span class="function">parse_medicine_fields</span>(df)
+<span class="line-number">04</span>    df = <span class="function">transform_prices</span>(df)
+<span class="line-number">05</span>    df = <span class="function">add_categorical_features</span>(df)
+<span class="line-number">06</span>    df = <span class="function">apply_window_functions</span>(df)
+<span class="line-number">07</span>    df = <span class="function">build_quality_flags</span>(df)
+<span class="line-number">08</span>
+<span class="line-number">09</span>    available = [
+<span class="line-number">10</span>        c <span class="keyword">for</span> c <span class="keyword">in</span> FINAL_COLUMNS
+<span class="line-number">11</span>        <span class="keyword">if</span> c <span class="keyword">in</span> df.columns
+<span class="line-number">12</span>    ]
+<span class="line-number">13</span>    <span class="keyword">return</span> df.<span class="function">select</span>(*available)</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section run-section" id="run">
+      <div class="section-shell">
+        <div class="section-heading centered light reveal">
+          <span class="kicker">Try it yourself</span>
+          <h2>From clone to first Spark run.</h2>
+          <p>No frontend build step. No hidden service. Just Python, Java, and your CSV.</p>
+        </div>
+        <div class="run-grid reveal delay-1">
+          <article>
+            <span class="step-number">1</span>
+            <h3>Create environment</h3>
+            <div class="command"><code>py -m venv .venv</code><button type="button" data-copy="py -m venv .venv">Copy</button></div>
+          </article>
+          <article>
+            <span class="step-number">2</span>
+            <h3>Install dependencies</h3>
+            <div class="command"><code>pip install -r requirements.txt</code><button type="button" data-copy="pip install -r requirements.txt">Copy</button></div>
+          </article>
+          <article>
+            <span class="step-number">3</span>
+            <h3>Verify prerequisites</h3>
+            <div class="command"><code>python scripts/check_setup.py</code><button type="button" data-copy="python scripts/check_setup.py">Copy</button></div>
+          </article>
+          <article>
+            <span class="step-number">4</span>
+            <h3>Run a 1% sample</h3>
+            <div class="command"><code>python run_local.py --sample 0.01</code><button type="button" data-copy="python run_local.py --sample 0.01">Copy</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section section-shell">
+      <div class="section-heading reveal">
+        <span class="kicker">What this project demonstrates</span>
+        <h2>Practical data engineering, not just syntax.</h2>
+      </div>
+      <div class="learning-grid">
+        <article class="learning-card reveal"><span>01</span><h3>Distributed thinking</h3><p>Transformations remain lazy until actions execute, so pipeline structure and repeated actions matter.</p></article>
+        <article class="learning-card reveal delay-1"><span>02</span><h3>Business-aware cleaning</h3><p>Deduplication uses a pharmaceutical business key instead of dropping arbitrary duplicate rows.</p></article>
+        <article class="learning-card reveal delay-2"><span>03</span><h3>Defensive analytics</h3><p>ANSI-safe arithmetic keeps invalid denominator cases visible without terminating the workload.</p></article>
+        <article class="learning-card reveal delay-3"><span>04</span><h3>Portable design</h3><p>The transformation core is independent from local and AWS Glue execution details.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <a class="brand" href="#top"><span class="brand-mark">P</span><span>PharmaFlow</span></a>
+      <p>PySpark pharmaceutical data pipeline, explained visually.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#architecture">Architecture</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#quality">Quality</a>
+      <a href="../README.md">Documentation</a>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
